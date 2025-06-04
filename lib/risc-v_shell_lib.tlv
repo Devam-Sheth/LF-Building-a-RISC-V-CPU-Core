@@ -21,6 +21,7 @@ m4+definitions(['
      // ANDI:
      m4_asm(ANDI, x5, x1, 1011100)
      m4_asm(XORI, x5, x5, 10101)
+     m4_asm(MUL, x1, x2, x3)
      // ORI:
      m4_asm(ORI, x6, x1, 1011100)
      m4_asm(XORI, x6, x6, 1011100)
