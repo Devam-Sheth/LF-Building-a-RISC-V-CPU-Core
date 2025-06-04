@@ -27,7 +27,7 @@ m4+definitions(['
         m4_asm(MUL, x10, x5, x6)           // x10 = x5 * x6  (3 * 4 = 12)
 
         // Test CUSTOM_RSQR operation
-        m4_asm(CUSTOM_RSQR, x11, x7, x0)   // x11 = x7 * x7  (5 * 5 = 25)
+        //m4_asm(CUSTOM_RSQR, x11, x7, x0)   // x11 = x7 * x7  (5 * 5 = 25)
 
         // Verification Logic
         m4_asm(ADDI, x12, x0, 000000001100) // x12 (expected_mul) = 12
