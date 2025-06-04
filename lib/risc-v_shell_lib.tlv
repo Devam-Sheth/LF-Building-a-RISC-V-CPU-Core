@@ -259,8 +259,8 @@ m4+definitions(['
 \TLV tb() 
     // Corrected indentation and simplified *passed assignment
     $passed_cond = (/xreg[30]$value == 32'b1) &&
-                   (! $reset && $next_pc[31:0] == $pc[31:0]);
-    *passed = $passed_cond; // VIZ will check for stability (passed_sig.step(-1))
+                  (! $reset && $next_pc[31:0] == $pc[31:0]);
+   *passed = >>2$passed_cond;
 
 // Original sum_prog is kept for reference but not used if m4_test_prog is active.
 \TLV sum_prog()
