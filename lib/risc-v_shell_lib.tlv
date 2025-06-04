@@ -185,8 +185,8 @@ m4+definitions(['
             let rs1 = siggen("rs1"), rs2 = siggen("rs2");
             let rs1_valid = siggen("rs1_valid"), rs2_valid = siggen("rs2_valid");
             let ld_data = siggen("ld_data"); let mnemonic = siggen_mnemonic();
-            // VIZ uses the $passed_cond signal directly, and its own logic checks for stability.
-            let passed_sig = siggen("passed_cond", "L0_passed_cond_a0", false); 
+            // VIZ now looks for the top-level 'passed' signal.
+            let passed_sig = siggen("passed", "passed", false); 
             let rf_rd_en1 = siggen_rf_dmem("rf1_rd_en1", `L0_rf1_rd_en1_a0`), rf_rd_index1 = siggen_rf_dmem("rf1_rd_index1", `L0_rf1_rd_index1_a0`);
             let rf_rd_en2 = siggen_rf_dmem("rf1_rd_en2", `L0_rf1_rd_en2_a0`), rf_rd_index2 = siggen_rf_dmem("rf1_rd_index2", `L0_rf1_rd_index2_a0`);
             let rf_wr_en = siggen_rf_dmem("rf1_wr_en", `L0_rf1_wr_en_a0`), rf_wr_index = siggen_rf_dmem("rf1_wr_index", `L0_rf1_wr_index_a0`);
@@ -257,8 +257,10 @@ m4+definitions(['
             where: {left: -680, top: M4_IMEM_TOP}
             
 \TLV tb() 
-    // Corrected indentation and simplified *passed assignment
-    *passed = ((/xreg[30]$value == 32'b1) && 
+    // Testbench pass/fail condition
+    // Assign directly to *passed to potentially avoid Verilator syntax error
+    // Ensure indentation is a multiple of 3 (e.g., 3 or 6 spaces from \TLV line)
+   *passed = ((/xreg[30]$value == 32'b1) && 
               (! $reset && $next_pc[31:0] == $pc[31:0]));
 
 // Original sum_prog is kept for reference but not used if m4_test_prog is active.
