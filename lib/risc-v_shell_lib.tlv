@@ -185,7 +185,8 @@ m4+definitions(['
             let rs1 = siggen("rs1"), rs2 = siggen("rs2");
             let rs1_valid = siggen("rs1_valid"), rs2_valid = siggen("rs2_valid");
             let ld_data = siggen("ld_data"); let mnemonic = siggen_mnemonic();
-            let passed_sig = siggen("passed_cond_delayed_2stages", "L0_passed_cond_delayed_2stages_a0", false); // Check the correct signal for passed condition
+            // VIZ uses the $passed_cond signal directly, and its own logic checks for stability.
+            let passed_sig = siggen("passed_cond", "L0_passed_cond_a0", false); 
             let rf_rd_en1 = siggen_rf_dmem("rf1_rd_en1", `L0_rf1_rd_en1_a0`), rf_rd_index1 = siggen_rf_dmem("rf1_rd_index1", `L0_rf1_rd_index1_a0`);
             let rf_rd_en2 = siggen_rf_dmem("rf1_rd_en2", `L0_rf1_rd_en2_a0`), rf_rd_index2 = siggen_rf_dmem("rf1_rd_index2", `L0_rf1_rd_index2_a0`);
             let rf_wr_en = siggen_rf_dmem("rf1_wr_en", `L0_rf1_wr_en_a0`), rf_wr_index = siggen_rf_dmem("rf1_wr_index", `L0_rf1_wr_index_a0`);
@@ -256,11 +257,10 @@ m4+definitions(['
             where: {left: -680, top: M4_IMEM_TOP}
             
 \TLV tb() 
-    // Corrected: Combined declaration and assignment for the intermediate signal.
+    // Corrected indentation and simplified *passed assignment
     $passed_cond = (/xreg[30]$value == 32'b1) &&
                    (! $reset && $next_pc[31:0] == $pc[31:0]);
-    $passed_cond_delayed_2stages = >>2$passed_cond; // Declare and assign pipelined signal
-    *passed = $passed_cond_delayed_2stages;
+    *passed = $passed_cond; // VIZ will check for stability (passed_sig.step(-1))
 
 // Original sum_prog is kept for reference but not used if m4_test_prog is active.
 \TLV sum_prog()
@@ -283,18 +283,3 @@ m4+definitions(['
     // This block is usually empty in the shell.
 \SV
     endmodule
-```
-
-**After applying this change to your `risc-v_shell_lib.tlv` on GitHub:**
-
-1.  **Ensure your Makerchip IDE code (from artifact `makerchip_ide_cpu_final_v3`) is still what you are using.** The only line that should differ from the original `LF-Building-a-RISC-V-CPU-Core/risc-v_shell.tlv` is the `m4_include_lib` path at the top, pointing to your repository.
-2.  **Hard Refresh Makerchip IDE**: Press Ctrl+Shift+R (or Cmd+Shift+R on Mac) in your browser while on the Makerchip IDE page.
-3.  **Run the Simulation**: Click "Compile & Run".
-
-If VIZ still doesn't appear:
-* **Check M4 Log**: This is the most important step. Look for any errors.
-    * Is `M4_NUM_INSTRS` a reasonable number (e.g., around 15-20 for the new test program)? If it's 0, the `m4_asm` calls are failing, likely because the macros (ADDI, MUL, CUSTOM_RSQR) are not defined. This would point to an issue with your `risc-v_defs.tlv` not being included or not correctly defining these.
-* **Check Verilator Log**: See if there are any *new* Verilator errors.
-* **Check Browser Console**: Open developer tools (F12) and look for JavaScript errors.
-
-The Verilator error you provided was very specific, and the fix applied to the `tb()` macro should resolve that particular compilation blocker. If VIZ is still missing, the problem likely lies in the M4 macro expansion chain, meaning one of the included files (`risc-v_shell_lib.tlv` or the `risc-v_defs.tlv` it includes) is not the correct version or has other subtle issu
