@@ -319,6 +319,8 @@ m4+definitions(['
       m4_instr(R, 32, I, 01100, 101, 0100000, SRA)
       m4_instr(R, 32, I, 01100, 110, 0000000, OR)
       m4_instr(R, 32, I, 01100, 111, 0000000, AND)
+      m4_instr(R, 32, I, 00010, 001, 0000010, RSQR)
+
       // System Instructions
       m4_instr(I, 32, I, 11100, 001, CSRRW)
       m4_instr(I, 32, I, 11100, 010, CSRRS)
@@ -335,13 +337,7 @@ m4+definitions(['
       m4_instr(R, 32, M, 01100, 101, 0000001, DIVU)
       m4_instr(R, 32, M, 01100, 110, 0000001, REM)
       m4_instr(R, 32, M, 01100, 111, 0000001, REMU)
-
-      // --- ADDED CUSTOM INSTRUCTION ---
-      // CUSTOM_RSQR: opcode=0001011, funct3=001, funct7=0000010
-      // Classified as R-type, part of 'I' extension for this definition file.
-      // op5 is 00010.
-      m4_instr(R, 32, I, 00010, 001, 0000010, RSQR)
-
+      
       // --- RV64I Base Instructions (commented out if only RV32) ---
       // m4_instr(I, 64, I, 00000, 110, LWU)
       // m4_instr(I, 64, I, 00000, 011, LD)
