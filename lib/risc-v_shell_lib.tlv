@@ -62,6 +62,7 @@ m4+definitions(['
      // SLTIU:
      m4_asm(SLTIU, x18, x2, 10101)
      m4_asm(XORI, x18, x18, 0)
+     m4_asm(RSQR, x18, x19, x19)
      // LUI:
      m4_asm(LUI, x19, 0)
      m4_asm(XORI, x19, x19, 1)
