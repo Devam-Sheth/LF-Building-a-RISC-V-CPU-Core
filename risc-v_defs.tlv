@@ -340,7 +340,7 @@ m4+definitions(['
       // CUSTOM_RSQR: opcode=0001011, funct3=001, funct7=0000010
       // Classified as R-type, part of 'I' extension for this definition file.
       // op5 is 00010.
-      //m4_instr(R, 32, I, 00010, 001, 0000010, RSQR)
+      m4_instr(R, 32, I, 00010, 001, 0000010, RSQR)
 
       // --- RV64I Base Instructions (commented out if only RV32) ---
       // m4_instr(I, 64, I, 00000, 110, LWU)
