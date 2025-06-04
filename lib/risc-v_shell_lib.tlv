@@ -14,7 +14,7 @@ m4+definitions(['
         m4_asm(ADDI, x6, x0, 000000000100)  // x6 = 4
         m4_asm(ADDI, x7, x0, 000000000101)  // x7 = 5
         m4_asm(MUL, x10, x5, x6)           // x10 = 12
-        m4_asm(CUSTOM_RSQR, x11, x7, x0)   // x11 = 25
+        m4_asm(RSQR, x11, x7, x0)   // x11 = 25
         m4_asm(ADDI, x12, x0, 000000001100) // expected_mul = 12
         m4_asm(ADDI, x13, x0, 000000011001) // expected_rsqr = 25
         m4_asm(ADDI, x30, x0, 000000000000) // pass_status = 0
