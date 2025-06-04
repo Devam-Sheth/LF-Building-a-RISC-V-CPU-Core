@@ -257,11 +257,11 @@ m4+definitions(['
             where: {left: -680, top: M4_IMEM_TOP}
             
 \TLV tb() 
-    // Testbench pass/fail condition
-    // Assign directly to *passed to potentially avoid Verilator syntax error
-    // Ensure indentation is a multiple of 3 (e.g., 3 or 6 spaces from \TLV line)
-   *passed = ((/xreg[30]$value == 32'b1) && 
-              (! $reset && $next_pc[31:0] == $pc[31:0]));
+   // This macro now ONLY defines the logic for $passed_cond.
+   // The assignment to *passed must happen in the top-level TLV file.
+   // Indentation is 3 spaces.
+   $passed_cond = ((/xreg[30]$value == 32'b1) && 
+                  (! $reset && $next_pc[31:0] == $pc[31:0]));
 
 // Original sum_prog is kept for reference but not used if m4_test_prog is active.
 \TLV sum_prog()
