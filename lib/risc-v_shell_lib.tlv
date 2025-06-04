@@ -30,6 +30,8 @@ m4+definitions(['
      // ADDI:
      m4_asm(SLLI, x8, x1, 110)
      m4_asm(XORI, x8, x8, 10101000001)
+     //MUL
+     m4_asm(MUL, x1, x7, x6)
      // SLLI:
      m4_asm(SRLI, x9, x1, 10)
      m4_asm(XORI, x9, x9, 100)
