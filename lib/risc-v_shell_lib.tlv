@@ -27,7 +27,7 @@ m4+definitions(['
      // ADDI:
      m4_asm(ADDI, x7, x1, 111)
      m4_asm(XORI, x7, x7, 11101)
-     m4_asm(LH, x3, x1, 16)
+     m4_asm(LH, x3, x1, 1)
      // ADDI:
      m4_asm(SLLI, x8, x1, 110)
      m4_asm(XORI, x8, x8, 10101000001)
