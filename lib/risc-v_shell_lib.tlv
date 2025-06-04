@@ -95,6 +95,10 @@ m4+definitions(['
      // Write 1 to remaining registers prior to x30 just to avoid concern.
      m4_asm(ADDI, x28, x0, 1)
      m4_asm(ADDI, x29, x0, 1)
+     m4_asm(ADDI, x6, x0, 110)
+     m4_asm(ADDI, x7, x0, 111)
+     m4_asm(MUL, x8, x6, x7)
+     m4_asm(RSQR, x9, x6)
      // Terminate with success condition (regardless of correctness of register values):
      m4_asm(ADDI, x30, x0, 1)
      m4_asm(JAL, x0, 0) // Done. Jump to itself (infinite loop). (Up to 20-bit signed immediate plus implicit 0 bit (unlike JALR) provides byte address; last immediate bit should also be 0)
