@@ -258,9 +258,8 @@ m4+definitions(['
             
 \TLV tb() 
     // Corrected indentation and simplified *passed assignment
-    $passed_cond = (/xreg[30]$value == 32'b1) &&
-                  (! $reset && $next_pc[31:0] == $pc[31:0]);
-   *passed = >>2$passed_cond;
+    *passed = ((/xreg[30]$value == 32'b1) && 
+              (! $reset && $next_pc[31:0] == $pc[31:0]));
 
 // Original sum_prog is kept for reference but not used if m4_test_prog is active.
 \TLV sum_prog()
