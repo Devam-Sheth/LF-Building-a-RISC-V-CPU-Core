@@ -46,7 +46,7 @@ m4+definitions(['
      // ADD:
      m4_asm(ADD, x13, x1, x2)
      m4_asm(XORI, x13, x13, 11101)
-     m4_asm(RSQR, x2, x3, 1)
+     m4_asm(RSQR, x2, x3, x1)
      // SUB:
      m4_asm(SUB, x14, x1, x2)
      m4_asm(XORI, x14, x14, 1111)
